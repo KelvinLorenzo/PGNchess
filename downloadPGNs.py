@@ -18,7 +18,7 @@ try:
 
     request = urllib.request.Request(url, None, headers)
     html = urllib.request.urlopen(request)
-    soup = BeautifulSoup(html.read()) # to parse the website
+    soup = BeautifulSoup(html.read(), 'html.parser') # to parse the website
 
     # find <a> tags with href
     for tag in soup.findAll('a', href=True):
