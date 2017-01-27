@@ -3,7 +3,7 @@
 import sys
 import glob
 
-path = '/users/kelvin/desktop/pgnfolder/*.pgn'
+path = '/users/kelvin/desktop/test/*.pgn'
 files = glob.glob(path)
 for pgn in files:
     print("current file is being analyzed: " + pgn)
