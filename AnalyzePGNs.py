@@ -1,6 +1,5 @@
 # Currently only analyzes a single/pre specified file, in a pre specified directory
-
-jabber = open("/Users/kelvin/desktop/test/\Astana2001.pgn")
+jabber = open("/Users/kelvin/desktop/test1/\Moscow2011.pgn")
 white = 0
 black = 0
 games = 0
