@@ -1,9 +1,7 @@
 import urllib.request, urllib.parse
-import glob
 import os
 import sys
 from bs4 import BeautifulSoup
-import glob
 url = input("[+] Enter the url 'http://www.pgnmentor.com/files.html': ")
 download_path = input("[+] Enter the download path in full: ")
 
