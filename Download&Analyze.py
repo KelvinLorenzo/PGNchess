@@ -2,6 +2,7 @@ import urllib.request, urllib.parse
 import os
 import sys
 from bs4 import BeautifulSoup
+import pgn
 url = input("[+] Enter the url 'http://www.pgnmentor.com/files.html': ")
 download_path = input("[+] Enter the download path in full: ")
 
@@ -36,7 +37,7 @@ print("\n[*] Downloaded {} files".format(i+1 - 1))
 input("Enter any key to perform the stats: ")
 spath = download_path
 for roots, dirs, files in os.walk(spath):
-    files = [f for f in files if not f[0] == '.']
+    files = [f for f in files if not f[0] == '.']  # skips hidden files in directory
     for fName in files:
         white = 0
         black = 0
@@ -56,3 +57,8 @@ for roots, dirs, files in os.walk(spath):
         print("White has won " + str(white) + " games/ " + str(100 * float(white)/float(games)) + "%")
         print("Black has won " + str(black) + " games/ " + str(100 * float(black)/float(games)) + "%")
         print("There has been " + str(draw) + " draws/ " + str(100 * float(draw)/float(games)) + "%")
+        with open(os.path.join(roots, fName)) as cFile:
+            aGames = pgn.loads(cFile.read())
+            for game in aGames:
+                counts = "{} vs {}, {} moves."
+                print(counts.format(game.white, game.black, len(game.moves)))
