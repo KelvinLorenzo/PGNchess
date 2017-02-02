@@ -68,13 +68,12 @@ for roots, dirs, files in os.walk(spath):
                 countList += [len(game.moves)]
             print("The min value of moves for all games in " + fName + " = {}".format(min(countList)))
             print("The median value of moves for all games in " + fName + " = {}".format(median(countList)))
-            print("The median value of moves for all games in " + fName + " = {}".format(mean(countList)))
+            print("The mean value of moves for all games in " + fName + " = {}".format(mean(countList)))
             print("The max value of moves for all games in " + fName + " = {}".format(max(countList)))
             print("The 50th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 50)))
             print("The 75th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 75)))
             print("The 90th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 90)))
             print("The 95th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 95)))
             print("The 99th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 99)))
-
 
 
