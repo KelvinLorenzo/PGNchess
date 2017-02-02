@@ -15,7 +15,7 @@ try:
 
     request = urllib.request.Request(url, None, headers)
     html = urllib.request.urlopen(request)
-    soup = BeautifulSoup(html.read(), 'html.parser') # to parse the website
+    soup = BeautifulSoup(html.read(), 'html.parser')  # to parse the website
 
     # find <a> tags with href
     for tag in soup.findAll('a', href=True):
@@ -35,27 +35,26 @@ except KeyboardInterrupt:
     sys.exit(1)
 
 print("\n[*] Downloaded {} files".format(i+1 - 1))
-
-path = download_path + "*.pgn"
-white = 0
-black = 0
-games = 0
-for filename in glob.glob(path):
-    print("current file is being analyzed: " + filename)
-    print("=" * 85)
-    with open(filename, 'r') as f:
-        for line in f:
-            if 'result "1-0"' in line.lower():
-                white += 1
-            if 'result "0-1"' in line.lower():
-                black += 1
-            if 'event' in line.lower():
-                games += 1
-    draw = games - (black + white)
-    print("This file has " + str(games) + " games being analyzed.")
-    print("White has won " + str(white) + " games/ " + str(100 * float(white)/float(games)) + "%")
-    print("Black has won " + str(black) + " games/ " + str(100 * float(black)/float(games)) + "%")
-    print("There has been " + str(draw) + " draws/ " + str(100 * float(draw)/float(games)) + "%")
-
-
-
+input("Enter any key to perform the stats: ")
+spath = download_path
+for roots, dirs, files in os.walk(spath):
+    files = [f for f in files if not f[0] == '.']
+    for fName in files:
+        white = 0
+        black = 0
+        games = 0
+        print("\n[*] Current file being analyzed: " + fName)
+        print("=" * 85)
+        with open(os.path.join(roots, fName), 'r') as dlFile:
+            for content in dlFile:
+                if 'result "1-0"' in content.lower():
+                    white += 1
+                if 'result "0-1"' in content.lower():
+                    black += 1
+                if 'event' in content.lower():
+                    games += 1
+        draw = games - (black + white)
+        print("This file has " + str(games) + " games being analyzed.")
+        print("White has won " + str(white) + " games/ " + str(100 * float(white)/float(games)) + "%")
+        print("Black has won " + str(black) + " games/ " + str(100 * float(black)/float(games)) + "%")
+        print("There has been " + str(draw) + " draws/ " + str(100 * float(draw)/float(games)) + "%")
