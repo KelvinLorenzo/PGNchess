@@ -3,6 +3,8 @@ import os
 import sys
 from bs4 import BeautifulSoup
 import pgn
+from statistics import median, mean
+import numpy as np
 url = input("[+] Enter the url 'http://www.pgnmentor.com/files.html': ")
 download_path = input("[+] Enter the download path in full: ")
 
@@ -59,6 +61,20 @@ for roots, dirs, files in os.walk(spath):
         print("There has been " + str(draw) + " draws/ " + str(100 * float(draw)/float(games)) + "%")
         with open(os.path.join(roots, fName)) as cFile:
             aGames = pgn.loads(cFile.read())
+            countList = []
             for game in aGames:
-                counts = "{} vs {}, {} moves."
-                print(counts.format(game.white, game.black, len(game.moves)))
+                counts = "{} vs {}, {} moves.".format(game.white, game.black, len(game.moves))
+                print(counts)
+                countList += [len(game.moves)]
+            print("The min value of moves for all games in " + fName + " = {}".format(min(countList)))
+            print("The median value of moves for all games in " + fName + " = {}".format(median(countList)))
+            print("The median value of moves for all games in " + fName + " = {}".format(mean(countList)))
+            print("The max value of moves for all games in " + fName + " = {}".format(max(countList)))
+            print("The 50th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 50)))
+            print("The 75th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 75)))
+            print("The 90th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 90)))
+            print("The 95th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 95)))
+            print("The 99th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 99)))
+
+
+
