@@ -19,7 +19,7 @@ try:
     soup = BeautifulSoup(html.read(), 'html.parser')  # to parse the website
 
     # find <a> tags with href
-    for tag in soup.findAll('a', href=True):
+    for tag in soup.findAll('a', class_="view", href=True):  # avoids duplicate downloads
         tag['href'] = urllib.parse.urljoin(url, tag['href'])
 
         # Pulls the extention with (splittext) from the url(basename) splittext used to split the extention [1]
@@ -35,7 +35,7 @@ except KeyboardInterrupt:
     print("[*] Exiting...")
     sys.exit(1)
 
-print("\n[*] Downloaded {} files".format(i+1 - 1))
+print("\n[*] Downloaded {} files".format(i+1))
 input("Enter any key to perform the stats: ")
 spath = download_path
 for roots, dirs, files in os.walk(spath):
@@ -75,5 +75,3 @@ for roots, dirs, files in os.walk(spath):
             print("The 90th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 90)))
             print("The 95th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 95)))
             print("The 99th percentile value for moves in " + fName + " =  {}".format(np.percentile(countList, 99)))
-
-
